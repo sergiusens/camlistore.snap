@@ -1,0 +1,26 @@
+name: camlistore.sergiusens
+version: 0.8
+vendor: Sergio Schvezov <sergio.schvezov@canonical.com>
+architecture: [amd64, armhf]
+icon: meta/camlistore.png
+
+services:
+        - name: camlistored
+          start: bin/camlistored
+          description: "camlistore server"
+
+binaries:
+        - name: bin/camget
+        - name: bin/cammount
+        - name: bin/camput
+        - name: bin/camtool
+        - name: bin/devcam
+        - name: bin/hello
+        - name: bin/publisher
+
+integration:
+        camlistored:
+                apparmor: meta/camlistored.apparmor
+
+ports:
+        required: 3179

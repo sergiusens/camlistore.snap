@@ -1,0 +1,46 @@
+#!/usr/bin/python3
+
+import json
+import os
+import sys
+import yaml
+
+app_data_path = '/var/lib/apps/camlistore.sergiusens/0.8/'
+system_config_file = os.path.join(
+    app_data_path,
+    '.config/camlistore/server-config.json')
+
+def main():
+    if len(sys.argv) == 1:
+        set_config()
+        sys.exit(0)
+    elif len(sys.argv) == 2:
+        config_file = sys.argv[1]
+        set_config(config_file)
+    else:
+        print("expecting only one argument")
+        sys.exit(1)
+
+
+def set_config(config_file=None):
+    if config_file:
+        with open(config_file, 'r') as f:
+            new_config = yaml.load(f)
+    else:
+        new_config = yaml.load(sys.stdin)
+
+    with open(system_config_file, 'r') as f:
+        system_config = json.load(f)
+
+    if 'url' in new_config:
+        system_config['baseUrl'] = new_config['url']
+
+    if 'auth' in new_config:
+        system_config['auth'] = new_config['auth']
+
+    with open(system_config_file, 'w') as f:
+        json.dump(system_config, f, indent=4)
+
+
+if __name__ == '__main__':
+    main()

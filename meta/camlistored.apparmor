@@ -1,0 +1,17 @@
+{
+	"template": "default",
+	"policy_vendor": "ubuntu-snappy",
+	"policy_version": 1.3,
+	"policy_groups": [
+		"networking"
+	],
+	"read_path": [
+		"/proc/sys/kernel/hostname",
+		"/proc/sys/kernel/osrelease",
+		"/proc/sys/net/core/somaconn",
+		"/proc/sys/net/core/somaxconn"
+	],
+	"write_path": [
+		"/var/tmp/"
+	]
+}
